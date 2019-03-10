@@ -4,15 +4,16 @@ import { Client } from './db/client.model';
 
 @Injectable()
 export class ClientService {
-    constructor(
+    public constructor(
         @Inject('ClientRepository') private readonly clientRepository: typeof Client) { }
 
-    async getByStatus(docId: number, status: number): Promise<ClientDto[]> {
+    public async getByStatus(docId: number, status: number): Promise<ClientDto[]> {
         return await this.clientRepository.findAll<Client>({
             where: {
                 DoctorID: docId,
                 status,
             },
+            attributes: ['id', 'firstname', 'lastname', 'telnum'],
         });
     }
 

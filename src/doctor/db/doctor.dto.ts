@@ -1,8 +1,7 @@
 export class DoctorDto {
-    readonly id: number;
-    readonly firstname: string;
-    readonly lastname: string;
-    readonly password: string;
-    token: string;
-
+    public readonly id!: number;
+    public readonly firstname!: string;
+    public readonly lastname!: string;
+    public readonly password!: string;
+    public token?: string;
 }

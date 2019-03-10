@@ -1,26 +1,26 @@
-import { Table, Column, Model, HasMany } from 'sequelize-typescript';
-import { Client } from 'src/client/db/client.model';
+import { Column, HasMany, Model, Table } from 'sequelize-typescript';
+import { Client } from '../../client/db/client.model';
 
 @Table
 export class Doctor extends Model<Doctor> {
     @Column({ primaryKey: true })
-    id: number;
+    public id!: number;
 
     @Column
-    firstname: string;
+    public firstname!: string;
 
     @Column
-    lastname: string;
+    public lastname!: string;
 
     @Column
-    login: string;
+    public login!: string;
 
     @Column
-    password: string;
+    public password!: string;
 
     @Column
-    token: string;
+    public token?: string;
 
     @HasMany(() => Client)
-    players: Client[];
+    public players?: Client[];
 }

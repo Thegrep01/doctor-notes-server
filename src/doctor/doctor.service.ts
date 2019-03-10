@@ -4,26 +4,29 @@ import { Doctor } from './db/doctor.model';
 
 @Injectable()
 export class DoctorService {
-    constructor(
+    public constructor(
         @Inject('DoctorRepository') private readonly doctorRepository: typeof Doctor) { }
 
-    async login(login: string, password: string): Promise<string> {
-        const doctor: DoctorDto = await this.doctorRepository.findOne({ where: { login } });
-        if (password === doctor.password) {
-            if (!doctor.token) {
-                doctor.token = this._genToken();
-                this.doctorRepository.update({ token: doctor.token }, { where: { login } });
+    public async login(login: string, password: string): Promise<string> {
+        const doctor: DoctorDto | null = await this.doctorRepository.findOne({ where: { login } });
+        if (doctor) {
+            if (password === doctor.password) {
+                if (!doctor.token) {
+                    doctor.token = this._genToken();
+                    this.doctorRepository.update({ token: doctor.token }, { where: { login } });
+                }
+                return doctor.token;
             }
-            return doctor.token;
+            throw Error('Password do not match');
         }
-        throw Error('Password do not match');
+        throw Error('No doctor!');
     }
 
-    private _genToken() {
-        let text = '';
-        const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    private _genToken(): string {
+        let text: string = '';
+        const possible: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-        for (let i = 0; i < 10; i++) {
+        for (let i: number = 0; i < 10; i++) {
             text += possible.charAt(Math.floor(Math.random() * possible.length));
         }
         return text;

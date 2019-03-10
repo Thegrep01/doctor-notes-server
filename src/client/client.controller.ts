@@ -1,20 +1,19 @@
 import { ClientService } from './client.service';
-import { Controller, Get, Query, Res, HttpStatus } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Query, Res } from '@nestjs/common';
 import { Response } from 'express-serve-static-core';
 import { ClientDto } from './db/client.dto';
 
 @Controller('client')
 export class ClientController {
 
-    // tslint:disable-next-line: variable-name
-    constructor(private _clientService: ClientService) { }
+    public constructor(private _clientService: ClientService) { }
 
     @Get('clients')
     public async getClients(
         @Query('docId') docId: number,
         @Query('status') status: number,
         @Res() res: Response,
-    ) {
+    ): Promise<Response> {
         try {
 
             const clients: ClientDto[] = await this._clientService.getByStatus(docId, status);

@@ -1,6 +1,7 @@
 import { Doctor } from './doctor.model';
 
-export const doctorProviders = [
+// tslint:disable-next-line: no-any
+export const doctorProviders: any = [
     {
         provide: 'DoctorRepository',
         useValue: Doctor,

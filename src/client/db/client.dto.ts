@@ -1,8 +1,9 @@
 export class ClientDto {
-    readonly id: number;
-    readonly firstname: string;
-    readonly lastname: string;
-    readonly telnum: string;
-    readonly status: number;
-    readonly DoctorID: number;
+    public readonly id!: number;
+    public readonly firstname!: string;
+    public readonly lastname!: string;
+    public readonly telnum?: string;
+    public readonly status!: number;
+    // tslint:disable-next-line: variable-name
+    public readonly DoctorID!: number;
 }

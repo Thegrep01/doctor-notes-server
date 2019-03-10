@@ -1,24 +1,25 @@
-import { Table, Column, Model, ForeignKey } from 'sequelize-typescript';
-import { Doctor } from 'src/doctor/db/doctor.model';
+import { Column, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { Doctor } from '../../doctor/db/doctor.model';
 
 @Table
 export class Client extends Model<Client> {
     @Column({ primaryKey: true })
-    id: number;
+    public id!: number;
 
     @Column
-    firstname: string;
+    public firstname!: string;
 
     @Column
-    lastname: string;
+    public lastname!: string;
 
     @Column
-    telnum: string;
+    public telnum?: string;
 
     @Column
-    status: number;
+    public status!: number;
 
     @ForeignKey(() => Doctor)
     @Column
-    DoctorID: number;
+    // tslint:disable-next-line: variable-name
+    public DoctorID!: number;
 }
