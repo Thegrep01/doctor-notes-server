@@ -12,7 +12,6 @@ export class DoctorController {
         @Body() data: { login: string, password: string },
         @Res() res: Response,
     ): Promise<Response> {
-        console.log(data);
         try {
             const { login, password } = data;
             const token: string = await this._doctorService.login(login, password);
