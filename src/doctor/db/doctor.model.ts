@@ -22,5 +22,5 @@ export class Doctor extends Model<Doctor> {
     public token?: string;
 
     @HasMany(() => Client)
-    public players?: Client[];
+    public clients?: Client[];
 }
