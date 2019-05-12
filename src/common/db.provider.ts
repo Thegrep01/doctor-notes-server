@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
 import { Doctor } from '../doctor/db/doctor.model';
-import { Client, Note } from '../client/db/client.model';
+import { Client, Note, Problems } from '../client/db/client.model';
 
 // tslint:disable-next-line: typedef
 export const databaseProviders = [
@@ -15,7 +15,7 @@ export const databaseProviders = [
         password: 'password',
         database: 'DoctorNotes',
       });
-      sequelize.addModels([Doctor, Client, Note]);
+      sequelize.addModels([Doctor, Client, Note, Problems]);
       await sequelize.sync();
       return sequelize;
     },

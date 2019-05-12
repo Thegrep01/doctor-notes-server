@@ -1,4 +1,4 @@
-import { Client, Note } from './client.model';
+import { Client, Note, Problems } from './client.model';
 
 // tslint:disable-next-line: typedef
 export const clientProviders = [
@@ -9,5 +9,9 @@ export const clientProviders = [
     {
         provide: 'NoteRepository',
         useValue: Note,
+    },
+    {
+        provide: 'ProblemsRepository',
+        useValue: Problems,
     },
 ];
