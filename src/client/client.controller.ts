@@ -67,10 +67,14 @@ export class ClientController {
     @Post('note')
     public async newNote(
         // tslint:disable-next-line:no-any
-        @Body() note: any,
+        @Body() data: any,
         @Res() res: Response
     ): Promise<Response> {
         try {
+            const { note, diagnos } = data;
+            if (diagnos) {
+                await this._clientService.updateClient({ id: note.clientId, problems: diagnos });
+            }
             await this._clientService.newNote({ ...note, CLientID: note.clientId });
             return res.status(HttpStatus.OK).json();
         } catch (error) {

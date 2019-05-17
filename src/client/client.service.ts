@@ -1,4 +1,4 @@
-import { NotesDto } from './db/client.dto';
+import { ClientDto, NotesDto } from './db/client.dto';
 import { Inject, Injectable } from '@nestjs/common';
 import { Client, Note, Problems } from './db/client.model';
 
@@ -23,17 +23,13 @@ export class ClientService {
 
     // tslint:disable:no-any
     public async getClientById(id: number): Promise<any> {
-        const problems: any = await this.probRepository.find({ where: { clientId: id } });
-        const client: any = await this.clientRepository.findOne({
-            where: {
-                id,
-            },
-            attributes: ['firstname', 'lastname', 'telnum', 'height', 'weight'],
-        });
-        return {
-            problems,
-            ...client,
-        };
+        let problems: any = await this.probRepository.findAll({ where: { clientId: +id } });
+        const client: Client[] = await this.clientRepository.findAll<Client>({ where: { id: +id } });
+        problems = problems.map((i: any) => i.name);
+        const newClient: any = client[0].dataValues;
+        newClient.problems = problems;
+
+        return newClient;
     }
 
     public async getNotesList(id: number): Promise<NotesDto[]> {
@@ -45,15 +41,24 @@ export class ClientService {
         });
     }
 
-    public async updateClient(query: any): Promise<void> {
+    public async updateClient(query: Partial<ClientDto>): Promise<void> {
         const val: any = {};
         if (query.weight) {
             val.weight = query.weight;
         }
-        if (query.problems) {
-            await this.probRepository.update(query.problems, { where: { clientId: query.id } });
+        if (query.problems && query.id) {
+            await this.probRepository.create({ name: query.problems, clientId: query.id });
+            return;
         }
-        await this.clientRepository.update(val, { where: { id: query.id } });
+        if (query.pressure) {
+            val.pressure = query.pressure;
+        }
+        if (query.temperature) {
+            val.temperature = query.temperature;
+        }
+        if (query.id && val) {
+            await this.clientRepository.update(val, { where: { id: query.id } });
+        }
     }
 
     // tslint:disable-next-line:no-any

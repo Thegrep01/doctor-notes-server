@@ -38,6 +38,12 @@ export class Client extends Model<Client> {
     @Column
     public status!: number;
 
+    @Column
+    public pressure!: string;
+
+    @Column
+    public temperature!: number;
+
     @ForeignKey(() => Doctor)
     @Column
     // tslint:disable-next-line: variable-name

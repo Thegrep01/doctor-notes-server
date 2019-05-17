@@ -8,7 +8,10 @@ export class ClientDto {
     public readonly DoctorID!: number;
     public readonly height!: number;
     public weight!: number;
-    public problems?: string[];
+    // tslint:disable-next-line:no-any
+    public problems?: any;
+    public pressure!: string;
+    public temperature!: number;
 }
 
 // tslint:disable-next-line: max-classes-per-file
