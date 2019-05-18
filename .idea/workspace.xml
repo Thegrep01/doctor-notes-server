@@ -274,7 +274,7 @@
       <workItem from="1555918925339" duration="17000" />
       <workItem from="1557573638446" duration="1980000" />
       <workItem from="1557847909976" duration="143000" />
-      <workItem from="1558127002765" duration="4372000" />
+      <workItem from="1558127002765" duration="4406000" />
     </task>
     <task id="LOCAL-00001" summary="added notes create">
       <created>1555841419230</created>
@@ -287,11 +287,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9729000" />
+    <option name="totallyTimeSpent" value="9763000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24954791" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
