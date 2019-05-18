@@ -73,6 +73,12 @@ export class Note extends Model<Note> {
 
     @Column
     public diagnosis?: string;
+    @Column
+    public dateService?: string;
+    @Column
+    public startTime?: string;
+    @Column
+    public endTime?: string;
 
     @ForeignKey(() => Client)
     @Column
