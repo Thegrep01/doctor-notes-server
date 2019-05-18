@@ -28,6 +28,7 @@ export class ClientController {
     public async getInfo(@Query('id') id: number, @Res() res: Response): Promise<Response> {
         try {
             const info: ClientDto | null = await this._clientService.getClientById(id);
+            console.log(info);
             return res.status(HttpStatus.OK).json({ data: info });
         } catch (error) {
             return res.status(HttpStatus.BAD_REQUEST).json({

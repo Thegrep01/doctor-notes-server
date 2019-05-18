@@ -25,7 +25,9 @@ export class ClientService {
     public async getClientById(id: number): Promise<any> {
         let problems: any = await this.probRepository.findAll({ where: { clientId: +id } });
         const client: Client[] = await this.clientRepository.findAll<Client>({ where: { id: +id } });
-        problems = problems.map((i: any) => i.name);
+        problems = problems.map((i: any) => {
+            return { name: i.name, date: i.date };
+        });
         const newClient: any = client[0].dataValues;
         newClient.problems = problems;
 
@@ -47,7 +49,11 @@ export class ClientService {
             val.weight = query.weight;
         }
         if (query.problems && query.id) {
-            await this.probRepository.create({ name: query.problems, clientId: query.id });
+            await this.probRepository.create({
+                name: query.problems,
+                clientId: query.id,
+                date: new Date().toDateString(),
+            });
             return;
         }
         if (query.pressure) {

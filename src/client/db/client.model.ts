@@ -6,6 +6,8 @@ import { Doctor } from '../../doctor/db/doctor.model';
 export class Problems extends Model<Problems> {
     @Column({ primaryKey: true })
     public name!: string;
+    @Column
+    public date!: string;
 
     @ForeignKey(() => Client)
     @Column
