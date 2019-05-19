@@ -73,8 +73,8 @@ export class Note extends Model<Note> {
     @Column
     public date!: Date;
 
-    @Column
-    public diagnosis?: string;
+    // @Column
+    // public diagnosis?: string;
     @Column
     public dateService?: string;
     @Column

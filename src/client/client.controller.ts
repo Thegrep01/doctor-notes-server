@@ -2,6 +2,7 @@ import { ClientService } from './client.service';
 import { Body, Controller, Get, HttpStatus, Post, Put, Query, Res } from '@nestjs/common';
 import { Response } from 'express-serve-static-core';
 import { ClientDto, NotesDto } from './db/client.dto';
+import { Note } from './db/client.model';
 
 @Controller('client')
 export class ClientController {
@@ -38,13 +39,39 @@ export class ClientController {
         }
     }
 
+    @Get('getNote')
+    public async getNote(@Query('id') id: number, @Res() res: Response): Promise<Response> {
+        try {
+            const info: Note | null = await this._clientService.getNote(id);
+            return res.status(HttpStatus.OK).json({ data: info });
+        } catch (error) {
+            return res.status(HttpStatus.BAD_REQUEST).json({
+                data: null,
+                error: error.message,
+            });
+        }
+    }
+
     @Put('updateClient')
     // tslint:disable-next-line:no-any
-    public async updateClient(@Body() data: any, @Res() res: Response): Promise<Response> {
+    public async updateClient(
+        @Query('id') id: number,
+        @Res() res: Response,
+        @Query('weight') weight?: number,
+        // tslint:disable-next-line:no-any
+        @Query('pressure') pressure?: any,
+        // tslint:disable-next-line:no-any
+        @Query('status') status?: any
+    ): Promise<Response> {
         try {
-            await this._clientService.updateClient(data);
+            if (status === 'null') {
+                await this._clientService.updateClient({ id, weight, pressure });
+            } else {
+                await this._clientService.updateClient({ id, status });
+            }
             return res.status(HttpStatus.OK);
         } catch (error) {
+            console.log(error);
             return res.status(HttpStatus.BAD_REQUEST).json({
                 data: null,
                 error: error.message,

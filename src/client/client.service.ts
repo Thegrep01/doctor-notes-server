@@ -21,6 +21,9 @@ export class ClientService {
         });
     }
 
+    public async getNote(id: number): Promise<Note | null> {
+        return await this.notesRepository.findOne({ where: { id } });
+    }
     // tslint:disable:no-any
     public async getClientById(id: number): Promise<any> {
         let problems: any = await this.probRepository.findAll({ where: { clientId: +id } });
@@ -46,7 +49,7 @@ export class ClientService {
     public async updateClient(query: Partial<ClientDto>): Promise<void> {
         const val: any = {};
         if (query.weight) {
-            val.weight = query.weight;
+            val.weight = +query.weight;
         }
         if (query.problems && query.id) {
             await this.probRepository.create({
@@ -61,6 +64,9 @@ export class ClientService {
         }
         if (query.temperature) {
             val.temperature = query.temperature;
+        }
+        if (query.status !== undefined) {
+            val.status = query.status;
         }
         if (query.id && val) {
             await this.clientRepository.update(val, { where: { id: query.id } });
