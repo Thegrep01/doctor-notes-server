@@ -9,11 +9,11 @@ export const databaseProviders = [
     useFactory: async () => {
       const sequelize: Sequelize = new Sequelize({
         dialect: 'mysql',
-        host: 'localhost',
+        host: 'us-cdbr-iron-east-02.cleardb.net',
         port: 3306,
-        username: 'root',
-        password: 'password',
-        database: 'DoctorNotes',
+        username: 'b2c11e6c281f49',
+        password: '71fa82b8',
+        database: 'heroku_65dbddea35ee7df',
       });
       sequelize.addModels([Doctor, Client, Note, Problems]);
       await sequelize.sync();

@@ -14,6 +14,7 @@ export class Problems extends Model<Problems> {
     public clientId!: number;
 }
 
+// tslint:disable-next-line:max-classes-per-file
 @Table
 export class Client extends Model<Client> {
     @Column({ primaryKey: true, autoIncrement: true })
