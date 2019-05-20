@@ -15,14 +15,14 @@ export class ClientService {
     public async getByStatus(docId: number, status: number): Promise<any[]> {
         return await this.clientRepository.findAll<Client>({
             where: {
-                DoctorID: docId,
-                status,
+                DoctorID: +docId,
+                status: +status,
             },
         });
     }
 
     public async getNote(id: number): Promise<Note | null> {
-        return await this.notesRepository.findOne({ where: { id } });
+        return await this.notesRepository.findOne({ where: { id: +id } });
     }
     // tslint:disable:no-any
     public async getClientById(id: number): Promise<any> {
@@ -40,7 +40,7 @@ export class ClientService {
     public async getNotesList(id: number): Promise<NotesDto[]> {
         return await this.notesRepository.findAll<Note>({
             where: {
-                CLientID: id,
+                CLientID: +id,
             },
             attributes: ['id', 'title', 'date'],
         });
@@ -54,7 +54,7 @@ export class ClientService {
         if (query.problems && query.id) {
             await this.probRepository.create({
                 name: query.problems,
-                clientId: query.id,
+                clientId: +query.id,
                 date: new Date().toDateString(),
             });
             return;
@@ -69,7 +69,7 @@ export class ClientService {
             val.status = query.status;
         }
         if (query.id && val) {
-            await this.clientRepository.update(val, { where: { id: query.id } });
+            await this.clientRepository.update(val, { where: { id: +query.id } });
         }
     }
 
